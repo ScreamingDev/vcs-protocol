@@ -1,0 +1,15 @@
+{
+  "name": "sourcerer-mike/git-protocol",
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mike\\GitProtocol\\": "lib/Mike/GitProtocol"
+    }
+  },
+  "require": {
+    "symfony/console": "~3",
+    "symfony/finder": "~3"
+  }
+}

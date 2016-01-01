@@ -1,6 +1,6 @@
 <?php
 
-namespace Mike\GitProtocol\Vcs;
+namespace Mike\VcsProtocol\Vcs;
 
 
 class GitWrapper
@@ -10,7 +10,18 @@ class GitWrapper
     public function __construct($baseDir = null)
     {
         if (null == $baseDir) {
-            $baseDir = system('git rev-parse --show-toplevel');
+            $out      = [];
+            $exitCode = 0;
+
+            exec('git rev-parse --show-toplevel', $out, $exitCode);
+
+            if ($exitCode) {
+                throw new \DomainException(
+                    'Problem resolving vcs root node.'
+                );
+            }
+
+            $baseDir = current($out);
         }
 
         $this->baseDir = $baseDir;
@@ -43,6 +54,7 @@ class GitWrapper
             if ( ! $current) {
                 continue;
             }
+
             $current = $this->getHash($current);
 
             if ( ! $current) {
@@ -73,5 +85,14 @@ class GitWrapper
         exec('git log -1 --pretty=%B '.escapeshellarg($hash), $output);
 
         return trim(implode(PHP_EOL, $output));
+    }
+
+    public function getFirstCommit()
+    {
+        $out = [];
+
+        exec('git rev-list --max-parents=0 HEAD', $out);
+
+        return $out[0];
     }
 }

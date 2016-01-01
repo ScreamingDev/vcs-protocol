@@ -1,6 +1,6 @@
 <?php
 
-namespace Mike\GitProtocol\Console;
+namespace Mike\VcsProtocol\Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\Finder;
@@ -8,8 +8,7 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class Application extends \Symfony\Component\Console\Application {
 	public function __construct() {
-		$name = str_replace( '\\', ' ', __NAMESPACE__ );
-		parent::__construct( $name, '1.0.0' );
+		parent::__construct( 'VCS Protocol', '1.0.0' );
 
 		$finder = new Finder();
 		$finder->name( '*Command.php' )->in( __DIR__ );

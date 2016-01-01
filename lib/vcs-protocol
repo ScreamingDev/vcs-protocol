@@ -3,4 +3,4 @@
 SCRIPT=`realpath -s $0`
 SCRIPTPATH=`dirname $SCRIPT`
 
-php ${SCRIPTPATH}/git-protocol.php $@
+php ${SCRIPTPATH}/vcs-protocol.php $@
